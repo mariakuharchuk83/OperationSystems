@@ -103,7 +103,7 @@ public class Manager {
     }
 
     public void runMenu(RunningThread threadF, RunningThread threadG, BiConsumer<Optional<Double>, Status> onCalculated){
-        long start = System.nanoTime();
+        long start = System.currentTimeMillis();
         long end;
         AtomicBoolean promptWorking = new AtomicBoolean(true);
         runMenuEsc();
@@ -116,8 +116,8 @@ public class Manager {
             if (prompt) {
                 short answer;
                 synchronized (System.out) {
-                    end = System.nanoTime();
-                    System.out.println("Time between prompts: " + (end - start) / 1000000 + "ms");
+                    end = System.currentTimeMillis();
+                    System.out.println("Time between prompts: " + (end - start) + "ms");
                     System.out.println("1. Continue\n" +
                             "2. Continue without prompt\n" +
                             "3. Cancel\n"
@@ -126,7 +126,7 @@ public class Manager {
                     input.nextLine();
                 }
                 if (answer == 1) {
-                    start = System.nanoTime();
+                    start = System.currentTimeMillis();
                 } else if (answer == 2) {
                     prompt = false;
                     promptWorking.set(false);
